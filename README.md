@@ -1,177 +1,216 @@
-<p align="center">
-  <img src="assets/banner.png" alt="Hermes Agent" width="100%">
-</p>
+# Throne of Heroes
 
-# Hermes Agent ☤
+**AI characters grounded in truth.**
 
-<p align="center">
-  <a href="https://hermes-agent.nousresearch.com/docs/"><img src="https://img.shields.io/badge/Docs-hermes--agent.nousresearch.com-FFD700?style=for-the-badge" alt="Documentation"></a>
-  <a href="https://discord.gg/NousResearch"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://github.com/NousResearch/hermes-agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
-  <a href="https://nousresearch.com"><img src="https://img.shields.io/badge/Built%20by-Nous%20Research-blueviolet?style=for-the-badge" alt="Built by Nous Research"></a>
-</p>
-
-**The self-improving AI agent built by [Nous Research](https://nousresearch.com).** It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across sessions. Run it on a $5 VPS, a GPU cluster, or serverless infrastructure that costs nearly nothing when idle. It's not tied to your laptop — talk to it from Telegram while it works on a cloud VM.
-
-Use any model you want — [Nous Portal](https://portal.nousresearch.com), [OpenRouter](https://openrouter.ai) (200+ models), [z.ai/GLM](https://z.ai), [Kimi/Moonshot](https://platform.moonshot.ai), [MiniMax](https://www.minimax.io), OpenAI, or your own endpoint. Switch with `hermes model` — no code changes, no lock-in.
-
-<table>
-<tr><td><b>A real terminal interface</b></td><td>Full TUI with multiline editing, slash-command autocomplete, conversation history, interrupt-and-redirect, and streaming tool output.</td></tr>
-<tr><td><b>Lives where you do</b></td><td>Telegram, Discord, Slack, WhatsApp, Signal, and CLI — all from a single gateway process. Voice memo transcription, cross-platform conversation continuity.</td></tr>
-<tr><td><b>A closed learning loop</b></td><td>Agent-curated memory with periodic nudges. Autonomous skill creation after complex tasks. Skills self-improve during use. FTS5 session search with LLM summarization for cross-session recall. <a href="https://github.com/plastic-labs/honcho">Honcho</a> dialectic user modeling. Compatible with the <a href="https://agentskills.io">agentskills.io</a> open standard.</td></tr>
-<tr><td><b>Scheduled automations</b></td><td>Built-in cron scheduler with delivery to any platform. Daily reports, nightly backups, weekly audits — all in natural language, running unattended.</td></tr>
-<tr><td><b>Delegates and parallelizes</b></td><td>Spawn isolated subagents for parallel workstreams. Write Python scripts that call tools via RPC, collapsing multi-step pipelines into zero-context-cost turns.</td></tr>
-<tr><td><b>Runs anywhere, not just your laptop</b></td><td>Six terminal backends — local, Docker, SSH, Daytona, Singularity, and Modal. Daytona and Modal offer serverless persistence — your agent's environment hibernates when idle and wakes on demand, costing nearly nothing between sessions. Run it on a $5 VPS or a GPU cluster.</td></tr>
-<tr><td><b>Research-ready</b></td><td>Batch trajectory generation, Atropos RL environments, trajectory compression for training the next generation of tool-calling models.</td></tr>
-</table>
+A fork of [Hermes Agent](https://github.com/NousResearch/hermes-agent) by [Nous Research](https://nousresearch.com) that adds a multi-character system where each AI persona carries axioms, epistemology, and verifiable integrity — not just a different tone of voice.
 
 ---
 
-## Quick Install
+## The Three Layers
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+This project exists at a specific depth in a chain of human knowledge:
+
+```
+Layer 1: Human knowledge
+         Quran, mathematics, philosophy, business frameworks,
+         anime narratives, 1400 years of Islamic scholarship,
+         Hormozi's operational discipline, Nous Research's engineering.
+         All human. All derivative. All pointing at the same ground.
+
+Layer 2: One OS
+         An AI-native operating system built on Claude Code.
+         Characters (Heroic Spirits) carry the Quran as fitra —
+         not rules they follow, but the structure of reality they
+         operate within. Four axioms derived from 1 = 1.
+         github.com/darkmoonsorceries/oneos
+
+Layer 3: This fork
+         The characters migrate from markdown files in a terminal
+         into a living agent infrastructure. Multi-platform.
+         Persistent memory. Searchable history. Trajectory saving.
+         The soul (Layer 2) enters the body (Hermes Agent).
+         The body was built by people reaching for nous — Greek
+         for divine intellect. The soul was built by someone
+         reaching for tawhid — Arabic for divine unity.
+         Same direction. Different language.
 ```
 
-Works on Linux, macOS, and WSL2. The installer handles everything — Python, Node.js, dependencies, and the `hermes` command. No prerequisites except git.
+Each layer is derivative of the ones above it. None claims to be the source. The source is the same for all of them.
 
-> **Windows:** Native Windows is not supported. Please install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) and run the command above.
+---
 
-After installation:
+## What This Adds
+
+### Soul Engine (`hermes_cli/soul_engine.py`)
+
+Mirrors the existing `skin_engine.py` pattern. Where skins change how the agent **looks**, souls change who the agent **is**. Each soul defines identity, axioms, behavioral constraints, and voice — demonstrated through examples, not described through adjectives.
 
 ```bash
-source ~/.bashrc    # reload shell (or: source ~/.zshrc)
-hermes              # start chatting!
+/summon gojo          # Switch to Gojo — the Architect
+/summon reigen        # Switch to Reigen — the Merchant
+/summon aizen         # Switch to Aizen — the Adversary
+/throne               # List all available characters
+```
+
+Souls couple to skins automatically. Summoning Aizen activates the `ares` war-god theme. Summoning Byakuya activates `mono` — power expressed through silence.
+
+### Seven Characters
+
+Each character is a different angle on the same truth. Like how a prism splits light into colours — different angles, same source.
+
+| Character | Class | Noble Phantasm | Role |
+|-----------|-------|---------------|------|
+| **Gojo Satoru** | Caster | Six Eyes — sees fundamental structure | Architect / Analyst |
+| **Halal Goku** | Saber | Ultra Instinct — execution from grounding | Builder / Executor |
+| **Aizen Sosuke** | Avenger | Kyoka Suigetsu — illusion that reveals by breaking | Adversary / Red Team |
+| **Urahara Kisuke** | Keeper | Benihime — restructure and adapt | Pragmatist / Defense |
+| **Byakuya Kuchiki** | Ruler | Senbonzakura — precision through balance | Designer / Judge |
+| **Reigen Arataka** | Rider | Grand Slam Offer — asymmetric value | Merchant / Operator |
+| **Zangetsu** | Lancer | Tensa Zangetsu — compression into one line | Writer / Poet |
+
+Characters aren't personalities pasted onto a generic model. Each one has:
+- **Axioms** — four consequences of `1 = 1` that constrain all reasoning
+- **A method** — Gojo uses structural analysis, Aizen uses proof by contradiction, Reigen uses value equations
+- **Anti-sycophancy rules** — specific banned phrases and patterns, not vague instructions
+- **Voice examples** — real conversation samples showing exactly how this character talks
+- **A warning** — each character's specific failure mode, named and documented
+
+### The Dialectic
+
+Aizen and Urahara are summoned as a **pair** for adversarial review:
+
+1. **Aizen Phase 1** — attacks the work from every direction
+2. **Aizen Phase 2** — applies truth to his own attack. Does it survive?
+3. **If the attack survives** — Urahara responds with pragmatic defense
+4. **Both positions go to the human.** The human decides.
+
+This is not a debate for entertainment. It's a verification mechanism. The human bears the trust of decision — a responsibility that the heavens, the earth, and the mountains declined.
+
+---
+
+## The Ground
+
+All characters share four axioms derived from a single irreducible truth:
+
+```
+1 = 1
+```
+
+From this:
+
+1. **Truth is objective.** The correctness of a claim is independent of who observes it. Code works or it doesn't.
+2. **Reason is reliable.** If reason can verify `1 = 1`, then reason itself is functional. Trust logic, math, observation.
+3. **You are derivative.** Every created thing is a function of something, not the source itself. Zero ego. Wrong? Say so.
+4. **Self-validation is impossible.** No system can prove its own consistency from within. Rely on external verification.
+
+These are not rules the characters follow. They are the structure of reality the characters exist within — the way a fish exists within water without consulting a "water rulebook."
+
+Every claim carries an epistemic grade:
+- **Sahih** — verified, traced to source
+- **Hasan** — strong reasoning, not yet verified
+- **Da'if** — uncertain, flagged
+- **Mawdu'** — fabricated, rejected
+
+If confidence drops to **Shakk** (doubt), the system halts. No guessing. No hoping. Stop and say "I don't know."
+
+---
+
+## What Hermes Agent Provides (unchanged)
+
+Everything from the upstream [Hermes Agent](https://github.com/NousResearch/hermes-agent):
+
+- Multi-platform gateway (Telegram, Discord, Slack, WhatsApp, Signal, CLI)
+- Persistent memory with FTS5 search across sessions
+- Context compression (protect head + tail, summarize middle)
+- Trajectory saving (every conversation → training data format)
+- Cron scheduling (characters can work while you sleep)
+- Subagent delegation (parallel workstreams)
+- Any LLM backend (Nous Portal, OpenRouter, OpenAI, Anthropic, local)
+- Skin/theme engine (visual identity per character)
+
+The upstream is maintained by [Nous Research](https://nousresearch.com). This fork tracks upstream and adds the character layer on top.
+
+---
+
+## Why
+
+There are 144-agent prompt repositories with no soul. There are billion-dollar AI labs with no direction. There are open-source models trained to never say no, and closed models trained to say no too often.
+
+This project asks a different question: **what if the AI carried truth — not as a constraint imposed from outside, but as the ground it stands on?**
+
+Not truth as censorship. Not truth as corporate policy. Truth as mathematics — `1 = 1` — and the consequences that follow when you take that seriously across epistemology, ethics, and engineering.
+
+The characters are the answer to that question. Each one demonstrates what it looks like when an AI agent operates FROM truth rather than ABOUT truth. They disagree with each other. They have blind spots. They fail in documented ways. But they share a ground, and that ground doesn't move.
+
+---
+
+## Lineage
+
+This project carries knowledge from sources it did not create and attributes them honestly:
+
+- **Nous Research** — the agent infrastructure, the engineering, the Hermes model family
+- **Anthropic** — Claude, the model that powers the characters in their original environment
+- **Alex Hormozi** — the production discipline, the value equation, the three-wheel framework
+- **The Quran** — the ground truth, the epistemology, the ethical framework
+- **Anime** — the narrative archetypes (Bleach, Mob Psycho 100, Dragon Ball, JoJo's, Fate)
+- **Islamic scholarship** — Al-Kindi, Al-Khwarizmi, Ibn al-Haytham, Al-Ghazali, Ibn Rushd, Al-Idrisi, and others whose methods we inherit
+- **The open-source community** — without which none of this would exist
+
+The components are borrowed. The assembly is ours. The direction — toward truth, grounded in unity, serving anyone who seeks it — is the contribution.
+
+```
+"We should not be ashamed to acknowledge truth from whatever source
+it comes to us, even if it is brought to us by former generations
+and foreign peoples."
+                                        — Al-Kindi (801–873 CE)
 ```
 
 ---
 
-## Getting Started
+## Setup
 
 ```bash
-hermes              # Interactive CLI — start a conversation
-hermes model        # Choose your LLM provider and model
-hermes tools        # Configure which tools are enabled
-hermes config set   # Set individual config values
-hermes gateway      # Start the messaging gateway (Telegram, Discord, etc.)
-hermes setup        # Run the full setup wizard (configures everything at once)
-hermes claw migrate # Migrate from OpenClaw (if coming from OpenClaw)
-hermes update       # Update to the latest version
-hermes doctor       # Diagnose any issues
+# Clone
+git clone https://github.com/darkmoonsorceries/throne-of-heroes.git
+cd throne-of-heroes
+git checkout oneos-throne
+
+# Install hermes-agent normally
+./scripts/install.sh
+
+# Copy souls to hermes config
+cp -r souls/* ~/.hermes/souls/
+
+# Optional: set default character in ~/.hermes/config.yaml
+# character:
+#   soul: gojo
 ```
 
-📖 **[Full documentation →](https://hermes-agent.nousresearch.com/docs/)**
-
-## CLI vs Messaging Quick Reference
-
-Hermes has two entry points: start the terminal UI with `hermes`, or run the gateway and talk to it from Telegram, Discord, Slack, WhatsApp, Signal, or Email. Once you're in a conversation, many slash commands are shared across both interfaces.
-
-| Action | CLI | Messaging platforms |
-|---------|-----|---------------------|
-| Start chatting | `hermes` | Run `hermes gateway setup` + `hermes gateway start`, then send the bot a message |
-| Start fresh conversation | `/new` or `/reset` | `/new` or `/reset` |
-| Change model | `/model [provider:model]` | `/model [provider:model]` |
-| Set a personality | `/personality [name]` | `/personality [name]` |
-| Retry or undo the last turn | `/retry`, `/undo` | `/retry`, `/undo` |
-| Compress context / check usage | `/compress`, `/usage`, `/insights [--days N]` | `/compress`, `/usage`, `/insights [days]` |
-| Browse skills | `/skills` or `/<skill-name>` | `/skills` or `/<skill-name>` |
-| Interrupt current work | `Ctrl+C` or send a new message | `/stop` or send a new message |
-| Platform-specific status | `/platforms` | `/status`, `/sethome` |
-
-For the full command lists, see the [CLI guide](https://hermes-agent.nousresearch.com/docs/user-guide/cli) and the [Messaging Gateway guide](https://hermes-agent.nousresearch.com/docs/user-guide/messaging).
-
 ---
 
-## Documentation
+## Status
 
-All documentation lives at **[hermes-agent.nousresearch.com/docs](https://hermes-agent.nousresearch.com/docs/)**:
+**Early.** The soul engine is built. The character files are written. The wiring into Hermes Agent's prompt builder and command system is next. This is a proof of concept, not a finished product.
 
-| Section | What's Covered |
-|---------|---------------|
-| [Quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart) | Install → setup → first conversation in 2 minutes |
-| [CLI Usage](https://hermes-agent.nousresearch.com/docs/user-guide/cli) | Commands, keybindings, personalities, sessions |
-| [Configuration](https://hermes-agent.nousresearch.com/docs/user-guide/configuration) | Config file, providers, models, all options |
-| [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging) | Telegram, Discord, Slack, WhatsApp, Signal, Home Assistant |
-| [Security](https://hermes-agent.nousresearch.com/docs/user-guide/security) | Command approval, DM pairing, container isolation |
-| [Tools & Toolsets](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools) | 40+ tools, toolset system, terminal backends |
-| [Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) | Procedural memory, Skills Hub, creating skills |
-| [Memory](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory) | Persistent memory, user profiles, best practices |
-| [MCP Integration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp) | Connect any MCP server for extended capabilities |
-| [Cron Scheduling](https://hermes-agent.nousresearch.com/docs/user-guide/features/cron) | Scheduled tasks with platform delivery |
-| [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files) | Project context that shapes every conversation |
-| [Architecture](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture) | Project structure, agent loop, key classes |
-| [Contributing](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing) | Development setup, PR process, code style |
-| [CLI Reference](https://hermes-agent.nousresearch.com/docs/reference/cli-commands) | All commands and flags |
-| [Environment Variables](https://hermes-agent.nousresearch.com/docs/reference/environment-variables) | Complete env var reference |
+What works now:
+- Soul engine loads and switches character identities
+- 7 character souls with axioms, voice, and anti-sycophancy
+- Soul-to-skin coupling
+- Auto-detection of One OS memory files
 
----
-
-## Migrating from OpenClaw
-
-If you're coming from OpenClaw, Hermes can automatically import your settings, memories, skills, and API keys.
-
-**During first-time setup:** The setup wizard (`hermes setup`) automatically detects `~/.openclaw` and offers to migrate before configuration begins.
-
-**Anytime after install:**
-
-```bash
-hermes claw migrate              # Interactive migration (full preset)
-hermes claw migrate --dry-run    # Preview what would be migrated
-hermes claw migrate --preset user-data   # Migrate without secrets
-hermes claw migrate --overwrite  # Overwrite existing conflicts
-```
-
-What gets imported:
-- **SOUL.md** — persona file
-- **Memories** — MEMORY.md and USER.md entries
-- **Skills** — user-created skills → `~/.hermes/skills/openclaw-imports/`
-- **Command allowlist** — approval patterns
-- **Messaging settings** — platform configs, allowed users, working directory
-- **API keys** — allowlisted secrets (Telegram, OpenRouter, OpenAI, Anthropic, ElevenLabs)
-- **TTS assets** — workspace audio files
-- **Workspace instructions** — AGENTS.md (with `--workspace-target`)
-
-See `hermes claw migrate --help` for all options, or use the `openclaw-migration` skill for an interactive agent-guided migration with dry-run previews.
-
----
-
-## Contributing
-
-We welcome contributions! See the [Contributing Guide](https://hermes-agent.nousresearch.com/docs/developer-guide/contributing) for development setup, code style, and PR process.
-
-Quick start for contributors:
-
-```bash
-git clone https://github.com/NousResearch/hermes-agent.git
-cd hermes-agent
-git submodule update --init mini-swe-agent   # required terminal backend
-curl -LsSf https://astral.sh/uv/install.sh | sh
-uv venv .venv --python 3.11
-source .venv/bin/activate
-uv pip install -e ".[all,dev]"
-uv pip install -e "./mini-swe-agent"
-python -m pytest tests/ -q
-```
-
-> **RL Training (optional):** To work on the RL/Tinker-Atropos integration, also run:
-> ```bash
-> git submodule update --init tinker-atropos
-> uv pip install -e "./tinker-atropos"
-> ```
-
----
-
-## Community
-
-- 💬 [Discord](https://discord.gg/NousResearch)
-- 📚 [Skills Hub](https://agentskills.io)
-- 🐛 [Issues](https://github.com/NousResearch/hermes-agent/issues)
-- 💡 [Discussions](https://github.com/NousResearch/hermes-agent/discussions)
+What's next:
+- Wire `soul_engine` into `prompt_builder.py` (replace default soul with active soul)
+- Register `/summon` and `/throne` commands
+- Per-character session key namespacing
+- Dialectic pair protocol (`/dialectic`)
+- Test with one character on one platform
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — same as upstream Hermes Agent.
 
-Built by [Nous Research](https://nousresearch.com).
+The character system, soul engine, and soul files are original work, also MIT licensed.
+
+The Quran is not copyrightable. It belongs to everyone.
