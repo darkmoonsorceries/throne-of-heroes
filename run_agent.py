@@ -410,6 +410,41 @@ def _sanitize_messages_surrogates(messages: list) -> bool:
     return found
 
 
+# Arabic and complex Unicode ranges that trigger Together AI 400 errors
+_ARABIC_RE = re.compile(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]')
+_BOX_DRAWING_RE = re.compile(r'[\u2500-\u257F]')
+_GEOMETRIC_SHAPES_RE = re.compile(r'[\u25A0-\u25FF\u2B00-\u2BFF]')
+_EXTENDED_UNICODE_RE = re.compile(r'[^\x00-\x7F\u0080-\u00FF\u0100-\u024F\u1E00-\u1EFF\u2018-\u201F\u2022\u2026\u2028\u2029\u202F]')
+
+def _sanitize_messages_together(messages: list, base_url: str = "") -> bool:
+    """Sanitize content for Together AI to prevent HTTP 400 errors.
+    
+    Together's content filter rejects Arabic script, box-drawing characters,
+    and complex Unicode patterns. Strip these only when sending to Together.
+    Returns True if any content was sanitized.
+    """
+    if not messages or "together" not in base_url.lower():
+        return False
+    
+    found = False
+    for msg in messages:
+        if not isinstance(msg, dict):
+            continue
+        content = msg.get("content")
+        if isinstance(content, str):
+            # Replace Arabic with placeholder
+            cleaned = _ARABIC_RE.sub('[AR]', content)
+            # Replace box drawing with simple ASCII
+            cleaned = _BOX_DRAWING_RE.sub('─', cleaned)
+            cleaned = _GEOMETRIC_SHAPES_RE.sub('*', cleaned)
+            # Keep only safe Unicode ranges
+            cleaned = _EXTENDED_UNICODE_RE.sub('', cleaned)
+            if cleaned != content:
+                msg["content"] = cleaned
+                found = True
+    return found
+
+
 def _strip_budget_warnings_from_history(messages: list) -> None:
     """Remove budget pressure warnings from tool-result messages in-place.
 
@@ -7027,7 +7062,27 @@ class AIAgent:
                         # Surrogates weren't in messages — might be in system
                         # prompt or prefill.  Fall through to normal error path.
 
+                    # -----------------------------------------------------------
+                    # Together AI content validation recovery. Together's input
+                    # filter rejects Arabic, box-drawing, and complex Unicode.
+                    # Sanitize and retry once if we get a 400 from Together.
+                    # -----------------------------------------------------------
                     status_code = getattr(api_error, "status_code", None)
+                    _err_msg = str(getattr(api_error, 'message', str(api_error))).lower()
+                    _effective_base = getattr(self, 'base_url', '')
+                    if (
+                        status_code == 400
+                        and "together" in _err_msg or "together" in _effective_base.lower()
+                        and not getattr(self, '_together_sanitized', False)
+                    ):
+                        self._together_sanitized = True
+                        if _sanitize_messages_together(messages, _effective_base):
+                            self._vprint(
+                                f"{self.log_prefix}⚠️  Sanitized content for Together AI compatibility. Retrying...",
+                                force=True,
+                            )
+                            continue
+
                     recovered_with_pool, has_retried_429 = self._recover_with_credential_pool(
                         status_code=status_code,
                         has_retried_429=has_retried_429,

@@ -67,6 +67,38 @@ def _skin_branding(key: str, fallback: str) -> str:
 
 from hermes_cli import __version__ as VERSION, __release_date__ as RELEASE_DATE
 
+
+# =========================================================================
+# Wahid Dev Mode patch version
+# =========================================================================
+
+def _get_wahid_patch_version() -> Optional[str]:
+    """Get wahid dev mode patch version if available.
+    
+    Checks for WAHID_PATCHES.md in the hermes-dev directory
+    relative to the hermes-cli source root.
+    """
+    try:
+        # Try to find hermes-dev relative to this file
+        _banner_path = Path(__file__).resolve()
+        _src_root = _banner_path.parent.parent  # .../hermes-src/
+        _dev_paths = [
+            _src_root / "hermes-dev" / "WAHID_PATCHES.md",
+            _src_root.parent / "hermes-dev" / "WAHID_PATCHES.md",
+            Path.home() / "Programming" / "wahidOS" / "hermes-dev" / "WAHID_PATCHES.md",
+        ]
+        for _dev_path in _dev_paths:
+            if _dev_path.exists():
+                _content = _dev_path.read_text()
+                # Parse version line: "## Version: YYYY.MM.DD-N"
+                for _line in _content.splitlines():
+                    if _line.startswith("## Version:"):
+                        return _line.split(":", 1)[1].strip()
+        return None
+    except Exception:
+        return None
+
+
 HERMES_AGENT_LOGO = """[bold #FFD700]██╗  ██╗███████╗██████╗ ███╗   ███╗███████╗███████╗       █████╗  ██████╗ ███████╗███╗   ██╗████████╗[/]
 [bold #FFD700]██║  ██║██╔════╝██╔══██╗████╗ ████║██╔════╝██╔════╝      ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝[/]
 [#FFBF00]███████║█████╗  ██████╔╝██╔████╔██║█████╗  ███████╗█████╗███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║[/]
@@ -447,9 +479,17 @@ def build_welcome_banner(console: Console, model: str, cwd: str,
     agent_name = _skin_branding("agent_name", "Hermes Agent")
     title_color = _skin_color("banner_title", "#FFD700")
     border_color = _skin_color("banner_border", "#CD7F32")
+    
+    # Check for wahid patch version in dev mode
+    _wahid_version = _get_wahid_patch_version()
+    if _wahid_version:
+        _panel_title = f"[bold {title_color}]{agent_name} v{VERSION} ({RELEASE_DATE}) · wahid({_wahid_version})[/]"
+    else:
+        _panel_title = f"[bold {title_color}]{agent_name} v{VERSION} ({RELEASE_DATE})[/]"
+    
     outer_panel = Panel(
         layout_table,
-        title=f"[bold {title_color}]{agent_name} v{VERSION} ({RELEASE_DATE})[/]",
+        title=_panel_title,
         border_style=border_color,
         padding=(0, 2),
     )
